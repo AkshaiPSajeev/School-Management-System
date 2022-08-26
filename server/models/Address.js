@@ -1,7 +1,8 @@
 const mongoose=require('mongoose');
 
 const Address=mongoose.Schema(
-    {
+    {   
+        AddressName:{type:String,required:true},
         City:{type:String,required:true},
         District:{type:String,required:true},
         State:{type:String,required:true},

@@ -24,16 +24,23 @@ const Teachers=mongoose.Schema(
             required:true
         },
         DateOfBirth:{
-            type:String,
+            type:Date,
             required:true
         },
         Subjects:{
             type:Array,
             required:true
         },
-        ImagePath:{
-            type:String,
-            required:true
+        TeacherImage:{
+            ImageUrl:{
+                type:String,
+                required:true
+            },
+            CloudinaryId:{
+                type:String,
+                required:true
+            }
+            
         }
 
     },
