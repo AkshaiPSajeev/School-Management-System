@@ -2,6 +2,8 @@ const express=require('express');
 const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
+const logger=require('morgan');
+
 dotenv.config();
 
 
@@ -20,6 +22,7 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
 
 app.use(express.json())
 app.use(cors());
+app.use(logger('dev'));
 
 app.use('/',indexRoutes);
 app.use('/admin',adminRouter);

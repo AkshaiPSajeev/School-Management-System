@@ -1,9 +1,10 @@
 const { findOne } = require('../models/Users');
 const Users=require('../models/Users');
 const bcrypt=require('bcrypt');
-const {generateToken}=require('../utils/generateToken')
-const checkLogin=(req,res)=>{
-    const user=Users.   findOne({Email:req.body.email,Role:req.body.role});
+const generateToken=require('../utils/generateToken')
+const checkLogin=async(req,res)=>{
+    const user=await Users.findOne({Email:req.body.email});
+    console.log(req.body);
     console.log(user);
     if(user && bcrypt.compare(req.body.password,user.Password)){
        res.status(200).json(

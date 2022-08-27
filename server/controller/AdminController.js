@@ -41,7 +41,6 @@ const addSubject=async(req,res)=>{
 
 const addAdmin=async(req,res)=>{
     let salt=await bcrypt.genSalt(10); 
-    console.log(req.body);
     let encryptedPassword=await bcrypt.hash(req.body.Password,salt);
     try{
         await Users.create({

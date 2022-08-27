@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import {checkLoginCredentials}  from '../../api/api'
+import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
 
@@ -7,23 +8,24 @@ const [error, setError] = useState(false);
 const [errorMessage,setErrorMessage]=useState('');
 const [email,setEmail]=useState('');
 const [password,setPassword]=useState('');
+const navigate=useNavigate();
 const formvalid=()=>{
 
 if(email.trim() ==''&& password.trim() ==''){
-console.log('11111')
+
 setErrorMessage('Enter Email and password to login');
-console.log(errorMessage);
+
 return false;
 }else if(email.trim() ==''){
-console.log('2222')
+
 setErrorMessage('Email required');
-console.log(errorMessage);
+
 
 return false;
 }else if(password.trim() ==''){
 console.log('33333')
 setErrorMessage('Password required');
-console.log(errorMessage);
+
 
 return false;
 }
@@ -43,7 +45,19 @@ console.log(errorMessage);
     role:props.role
   }
   console.log('sending data')
-  checkLoginCredentials(credentials);
+  let response=checkLoginCredentials(credentials);
+  console.log('inside login component');
+  console.log(response);
+  if(response.status===200){
+    if(credentials.role==='Admin'){
+      //store token in context api
+      navigate('/admin')
+    }else if(credentials.role==='Student'){
+      navigate('/student')
+    }else if(credentials.role==='Teacher'){
+      navigate('/teacher')
+    }
+  }
 }
 }
 

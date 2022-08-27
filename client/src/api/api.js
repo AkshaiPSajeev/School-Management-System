@@ -8,7 +8,7 @@ export const checkLoginCredentials=(credentials)=>{
     if(credentials.role==='Student')url='/student/login'
     else if(credentials.role==='Admin')url='/admin/login'
     else if(credentials.role==='Teacher')url='/teacher/login'
-   
+    
     axios({
         method:'post',
         url:baseURL+url,
@@ -18,7 +18,9 @@ export const checkLoginCredentials=(credentials)=>{
           role:credentials.role
         }
    }).then((response)=>{
-     console.log(response);
+      console.log('here it is');
+      console.log(response);
+      return ({text:'hiii'});
    }).catch((response)=>{
       console.log(response);
    })
