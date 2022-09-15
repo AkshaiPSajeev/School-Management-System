@@ -10,9 +10,9 @@ const bcrypt=require('bcrypt');
 
 const addTeacher=async(req,res)=>{
    try{
-    
+    console.log(req.body);
     const imageUploadResponse= await cloudinary.uploader.upload(req.file.path,{folder:'Teachers'});
-    
+    console.log(imageUploadResponse.public_id);
     const address=await Address.create({
         AddressName:req.body.HouseName,
         City:req.body.City,
@@ -20,7 +20,7 @@ const addTeacher=async(req,res)=>{
         State:req.body.State,
         Pin:req.body.Pin
     });
-  
+    
     await Teachers.create({
         Name:req.body.Name,
         Email:req.body.Email,
@@ -28,7 +28,7 @@ const addTeacher=async(req,res)=>{
         Address:address._id.toString(),
         Qualification:req.body.Qualification,
         DateOfBirth:req.body.DateOfBirth,
-        Subjects:JSON.parse(req.body.Subjects).subjects,
+        //Subjects:JSON.parse(req.body.Subjects).subjects,
         TeacherImage:{
             ImageUrl:imageUploadResponse.secure_url,
             CloudinaryId:imageUploadResponse.public_id

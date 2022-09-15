@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {checkLoginCredentials}  from '../../api/api'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login(props) {
 
@@ -32,7 +33,7 @@ return false;
 return true;
 }
 
-const submitFormData=(e)=>{
+const submitFormData=async (e)=>{
 e.preventDefault();
 if(!formvalid()){
 setError(true);
@@ -44,9 +45,23 @@ console.log(errorMessage);
     password:password,
     role:props.role
   }
-  console.log('sending data')
-  let response=checkLoginCredentials(credentials);
-  console.log('inside login component');
+  console.log('sending data');
+  const baseURL='http://localhost:8000';
+  //let response=await checkLoginCredentials(credentials);
+  let url='';
+  if(credentials.role==='Student')url='/student/login'
+  else if(credentials.role==='Admin')url='/admin/login'
+  else if(credentials.role==='Teacher')url='/teacher/login'
+  
+  axios({
+      method:'post',
+      url:baseURL+url,
+      data:{
+        email:credentials.email,
+        password:credentials.password,
+        role:credentials.role
+      }
+ }).then((response)=>{
   console.log(response);
   if(response.status===200){
     if(credentials.role==='Admin'){
@@ -58,6 +73,11 @@ console.log(errorMessage);
       navigate('/teacher')
     }
   }
+ }).catch((response)=>{
+    console.log(response);
+ })
+  
+  
 }
 }
 

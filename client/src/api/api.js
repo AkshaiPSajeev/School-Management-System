@@ -18,10 +18,11 @@ export const checkLoginCredentials=(credentials)=>{
           role:credentials.role
         }
    }).then((response)=>{
-      console.log('here it is');
-      console.log(response);
+     
       return ({text:'hiii'});
    }).catch((response)=>{
       console.log(response);
    })
+  
+
 }

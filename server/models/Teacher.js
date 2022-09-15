@@ -27,10 +27,10 @@ const Teachers=mongoose.Schema(
             type:Date,
             required:true
         },
-        Subjects:{
+        /*Subjects:{
             type:Array,
             required:true
-        },
+        },*/
         TeacherImage:{
             ImageUrl:{
                 type:String,

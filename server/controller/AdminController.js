@@ -3,6 +3,8 @@ const Address=require('../models/Address');
 const Subjects=require('../models/Subject')
 const Users=require('../models/Users')
 const bcrypt=require('bcrypt');
+const Sections=require('../models/Sections');
+const Classes = require('../models/Classes');
 const addSchoolDetails=async(req,res)=>{
     
     const {SchoolName,City,District,State,Pin}=req.body;
@@ -61,9 +63,20 @@ const addAdmin=async(req,res)=>{
     }
 }
 
+const addSection=async(req,res)=>{
+
+    console.log(req.body);
+    const section=await Sections.findOne({SectionName:req.body.SectionName});
+    console.log(section._id);
+    const classes=await Classes.find({SectionId:section._id});
+    console.log(classes);
+}
+
+
 
 module.exports={
     addSchoolDetails,
     addSubject,
-    addAdmin
+    addAdmin,
+    addSection
 }
